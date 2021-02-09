@@ -1,0 +1,3832 @@
+{
+	"info": {
+		"_postman_id": "e3ff881e-e093-4e6d-ad96-16cc21ff5869",
+		"name": "Carrier_Admin_STO",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "SessionOpen",
+			"item": [
+				{
+					"name": "SessionOpen",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"postman.clearGlobalVariables();",
+									"var data = JSON.parse(responseBody);",
+									"if (data.oauthToken) {",
+									"    postman.setEnvironmentVariable(\"oauthToken\", data.oauthToken);",
+									"}",
+									"",
+									"",
+									"var data = JSON.parse(responseBody);",
+									"if (data.clientKey) {",
+									"    postman.setEnvironmentVariable(\"client_key\", data.clientKey);",
+									"}",
+									"",
+									"var data = JSON.parse(responseBody);",
+									"if (data.clientSecret) {",
+									"    postman.setEnvironmentVariable(\"client_secret\", data.clientSecret);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept-version",
+								"type": "text",
+								"value": "3.1",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"usrName\": \"BRPRASAD\",\n  \"password\": \"year@456\",\n  \"sessOverrideKey\": null,\n  \"withPerm\": true\n  \n  \n   \n}"
+						},
+						"url": {
+							"raw": "{{url}}/v3/ip/sec/session/open",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v3",
+								"ip",
+								"sec",
+								"session",
+								"open"
+							],
+							"query": [
+								{
+									"key": "sessOverrideKey",
+									"value": "c3e745f1-9596-4afe-b04b-44620afc56e3",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CIS",
+			"item": [
+				{
+					"name": "Retreive CIC",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var nusJsonData = JSON.parse(responseBody);\r",
+									"console.log(nusJsonData.reqId);\r",
+									"if(nusJsonData.reqId){\r",
+									"    postman.setGlobalVariable(\"reqId\", nusJsonData.reqId);\r",
+									"}else{\r",
+									"    console.log(\"errList\");\r",
+									"}\r",
+									"\r",
+									"console.log(request)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.request.headers.add({\r",
+									"  key: 'Accept-Version',\r",
+									"  value: '{{acc_version}}'\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{oauthToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"conName\": \"Merin\",\n    \"conTel\": \"7727709876\",\n    \"qty\": 1,\n    \"tmplName\": \"*BR-1\",\n    \"numTermLine\": \"1\",\n    \"svcOrderNum\": \"test123\",\n    \"effDtTm\": \"NOW\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v3/ip/car/cis/cicCode/0000",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v3",
+								"ip",
+								"car",
+								"cis",
+								"cicCode",
+								"0000"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve CIC STO",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.request.headers.add({\r",
+									"  key: 'Accept-Version',\r",
+									"  value: '{{acc_version}}'\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"console.log(request)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{oauthToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"conName\": \"Rashi\",\n    \"conTel\": \"7727709876\",\n    \"qty\": 1,\n    \"tmplName\": \"*BR-1\",\n    \"numTermLine\": \"100\",\n    \"svcOrderNum\": \"abcd\",\n    \"effDtTm\": \"NOW\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v3/ip/car/cis?reqId={{reqId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v3",
+								"ip",
+								"car",
+								"cis"
+							],
+							"query": [
+								{
+									"key": "reqId",
+									"value": "{{reqId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "APR",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var nusJsonData = JSON.parse(responseBody);\r",
+									"console.log(nusJsonData.reqId);\r",
+									"if(nusJsonData.reqId){\r",
+									"    postman.setGlobalVariable(\"reqId\", nusJsonData.reqId);\r",
+									"}else{\r",
+									"    console.log(\"errList\");\r",
+									"}\r",
+									"console.log(request)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.request.headers.add({\r",
+									"  key: 'Accept-Version',\r",
+									"  value: '{{acc_version}}'\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{oauthToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"qty\":1}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v3/ip/car/apr/cicCode/0000/frmEffDt/20201130/toEffDt/20201217/allTemplates/Y/aprRsp/Y",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v3",
+								"ip",
+								"car",
+								"apr",
+								"cicCode",
+								"0000",
+								"frmEffDt",
+								"20201130",
+								"toEffDt",
+								"20201217",
+								"allTemplates",
+								"Y",
+								"aprRsp",
+								"Y"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "APR STO",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.request.headers.add({\r",
+									"  key: 'Accept-Version',\r",
+									"  value: '{{acc_version}}'\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{oauthToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"qty\":1}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v3/ip/car/apr?reqId={{reqId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v3",
+								"ip",
+								"car",
+								"apr"
+							],
+							"query": [
+								{
+									"key": "reqId",
+									"value": "{{reqId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "cla",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var nusJsonData = JSON.parse(responseBody);\r",
+									"console.log(nusJsonData.reqId);\r",
+									"if(nusJsonData.reqId){\r",
+									"    postman.setGlobalVariable(\"reqId\", nusJsonData.reqId);\r",
+									"}else{\r",
+									"    console.log(\"errList\");\r",
+									"}\r",
+									"\r",
+									"console.log(request)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.request.headers.add({\r",
+									"  key: 'Accept-Version',\r",
+									"  value: '{{acc_version}}'\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{oauthToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"conName\": \"Merin\",\n    \"conTel\": \"7727709876\",\n    \"numList\": [\n        \"{{num}}\"\n    ],\n    \"tmplName\": \"*BR-1\",\n    \"numTermLine\": \"1\",\n    \"svcOrderNum\": \"test123\",\n    \"effDtTm\": \"NOW\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v3/ip/car/cla/entity/BR",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v3",
+								"ip",
+								"car",
+								"cla",
+								"entity",
+								"BR"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "cla sto",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.request.headers.add({\r",
+									"  key: 'Accept-Version',\r",
+									"  value: '{{acc_version}}'\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"console.log(request)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{oauthToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"conName\": \"Rashi\",\n    \"conTel\": \"7727709876\",\n    \"qty\": 1,\n    \"tmplName\": \"*BR-1\",\n    \"numTermLine\": \"100\",\n    \"svcOrderNum\": \"abcd\",\n    \"effDtTm\": \"NOW\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v3/ip/car/cla?reqId={{reqId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v3",
+								"ip",
+								"car",
+								"cla"
+							],
+							"query": [
+								{
+									"key": "reqId",
+									"value": "{{reqId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "cle",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var nusJsonData = JSON.parse(responseBody);\r",
+									"console.log(nusJsonData.reqId);\r",
+									"if(nusJsonData.reqId){\r",
+									"    postman.setGlobalVariable(\"reqId\", nusJsonData.reqId);\r",
+									"}\r",
+									"console.log(request)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.request.headers.add({\r",
+									"  key: 'Accept-Version',\r",
+									"  value: '{{acc_version}}'\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{oauthToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"conName\": \"Merin\",\n    \"conTel\": \"7727709876\",\n    \"qty\": 1,\n    \"wildCardNum\": \"******&&&&\",\n    \"tmplName\": \"*BR-1\",\n    \"numTermLine\": \"1\",\n    \"svcOrderNum\": \"test123\",\n    \"effDtTm\": \"NOW\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v3/ip/car/cle/entity/BR",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v3",
+								"ip",
+								"car",
+								"cle",
+								"entity",
+								"BR"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "cle sto",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.request.headers.add({\r",
+									"  key: 'Accept-Version',\r",
+									"  value: '{{acc_version}}'\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"console.log(request)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{oauthToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"conName\": \"Rashi\",\n    \"conTel\": \"7727709876\",\n    \"qty\": 1,\n    \"tmplName\": \"*BR-1\",\n    \"numTermLine\": \"100\",\n    \"svcOrderNum\": \"abcd\",\n    \"effDtTm\": \"NOW\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v3/ip/car/cle?reqId={{reqId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v3",
+								"ip",
+								"car",
+								"cle"
+							],
+							"query": [
+								{
+									"key": "reqId",
+									"value": "{{reqId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DAP",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var nusJsonData = JSON.parse(responseBody);\r",
+									"console.log(nusJsonData.reqId);\r",
+									"if(nusJsonData.reqId){\r",
+									"    postman.setGlobalVariable(\"reqId\", nusJsonData.reqId);\r",
+									"}\r",
+									"console.log(request)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.request.headers.add({\r",
+									"  key: 'Accept-Version',\r",
+									"  value: '{{acc_version}}'\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{oauthToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"conName\": \"Merin\",\n    \"conTel\": \"7727709876\",\n    \"qty\": 1,\n    \"wildCardNum\": \"******&&&&\",\n    \"tmplName\": \"*BR-1\",\n    \"numTermLine\": \"1\",\n    \"svcOrderNum\": \"test123\",\n    \"effDtTm\": \"NOW\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v3/ip/car/dap/tfnum/8442347755?effDtTm=20201129",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v3",
+								"ip",
+								"car",
+								"dap",
+								"tfnum",
+								"8442347755"
+							],
+							"query": [
+								{
+									"key": "effDtTm",
+									"value": "20201129"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DAP STO",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var nusJsonData = JSON.parse(responseBody);\r",
+									"console.log(nusJsonData.reqId);\r",
+									"if(nusJsonData.reqId){\r",
+									"    postman.setGlobalVariable(\"reqId\", nusJsonData.reqId);\r",
+									"}\r",
+									"console.log(request)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.request.headers.add({\r",
+									"  key: 'Accept-Version',\r",
+									"  value: '{{acc_version}}'\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{oauthToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"conName\": \"Merin\",\n    \"conTel\": \"7727709876\",\n    \"qty\": 1,\n    \"wildCardNum\": \"******&&&&\",\n    \"tmplName\": \"*BR-1\",\n    \"numTermLine\": \"1\",\n    \"svcOrderNum\": \"test123\",\n    \"effDtTm\": \"NOW\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v3/ip/car/dap?reqId={{reqId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v3",
+								"ip",
+								"car",
+								"dap"
+							],
+							"query": [
+								{
+									"key": "reqId",
+									"value": "{{reqId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "eag",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var nusJsonData = JSON.parse(responseBody);\r",
+									"console.log(nusJsonData.reqId);\r",
+									"if(nusJsonData.reqId){\r",
+									"    postman.setGlobalVariable(\"reqId\", nusJsonData.reqId);\r",
+									"}\r",
+									"console.log(request)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.request.headers.add({\r",
+									"  key: 'Accept-Version',\r",
+									"  value: '{{acc_version}}'\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{oauthToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"conName\": \"Merin\",\n    \"conTel\": \"7727709876\",\n    \"qty\": 1,\n    \"wildCardNum\": \"******&&&&\",\n    \"tmplName\": \"*BR-1\",\n    \"numTermLine\": \"1\",\n    \"svcOrderNum\": \"test123\",\n    \"effDtTm\": \"NOW\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v3/ip/car/eag/entity/BR",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v3",
+								"ip",
+								"car",
+								"eag",
+								"entity",
+								"BR"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "eag Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var nusJsonData = JSON.parse(responseBody);\r",
+									"console.log(nusJsonData.reqId);\r",
+									"if(nusJsonData.reqId){\r",
+									"    postman.setGlobalVariable(\"reqId\", nusJsonData.reqId);\r",
+									"}\r",
+									"console.log(request)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.request.headers.add({\r",
+									"  key: 'Accept-Version',\r",
+									"  value: '{{acc_version}}'\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{oauthToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"conName\": \"Merin\",\n    \"conTel\": \"7727709876\",\n    \"qty\": 1,\n    \"wildCardNum\": \"******&&&&\",\n    \"tmplName\": \"*BR-1\",\n    \"numTermLine\": \"1\",\n    \"svcOrderNum\": \"test123\",\n    \"effDtTm\": \"NOW\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v3/ip/car/eag?reqId={{reqId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v3",
+								"ip",
+								"car",
+								"eag"
+							],
+							"query": [
+								{
+									"key": "reqId",
+									"value": "{{reqId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "eno",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var nusJsonData = JSON.parse(responseBody);\r",
+									"console.log(nusJsonData.reqId);\r",
+									"if(nusJsonData.reqId){\r",
+									"    postman.setGlobalVariable(\"reqId\", nusJsonData.reqId);\r",
+									"}\r",
+									"console.log(request)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.request.headers.add({\r",
+									"  key: 'Accept-Version',\r",
+									"  value: '{{acc_version}}'\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{oauthToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"conName\": \"Merin\",\n    \"conTel\": \"7727709876\",\n    \"qty\": 1,\n    \"wildCardNum\": \"******&&&&\",\n    \"tmplName\": \"*BR-1\",\n    \"numTermLine\": \"1\",\n    \"svcOrderNum\": \"test123\",\n    \"effDtTm\": \"NOW\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v3/ip/car/eno/cicCode/0000",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v3",
+								"ip",
+								"car",
+								"eno",
+								"cicCode",
+								"0000"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "eno STO",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var nusJsonData = JSON.parse(responseBody);\r",
+									"console.log(nusJsonData.reqId);\r",
+									"if(nusJsonData.reqId){\r",
+									"    postman.setGlobalVariable(\"reqId\", nusJsonData.reqId);\r",
+									"}\r",
+									"console.log(request)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.request.headers.add({\r",
+									"  key: 'Accept-Version',\r",
+									"  value: '{{acc_version}}'\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{oauthToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"conName\": \"Merin\",\n    \"conTel\": \"7727709876\",\n    \"qty\": 1,\n    \"wildCardNum\": \"******&&&&\",\n    \"tmplName\": \"*BR-1\",\n    \"numTermLine\": \"1\",\n    \"svcOrderNum\": \"test123\",\n    \"effDtTm\": \"NOW\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v3/ip/car/eno?reqId={{reqId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v3",
+								"ip",
+								"car",
+								"eno"
+							],
+							"query": [
+								{
+									"key": "reqId",
+									"value": "{{reqId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "gna",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var nusJsonData = JSON.parse(responseBody);\r",
+									"console.log(nusJsonData.reqId);\r",
+									"if(nusJsonData.reqId){\r",
+									"    postman.setGlobalVariable(\"reqId\", nusJsonData.reqId);\r",
+									"}\r",
+									"console.log(request)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.request.headers.add({\r",
+									"  key: 'Accept-Version',\r",
+									"  value: '{{acc_version}}'\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{oauthToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"conName\": \"Merin\",\n    \"conTel\": \"7727709876\",\n    \"qty\": 1,\n    \"wildCardNum\": \"******&&&&\",\n    \"tmplName\": \"*BR-1\",\n    \"numTermLine\": \"1\",\n    \"svcOrderNum\": \"test123\",\n    \"effDtTm\": \"NOW\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v3/ip/car/gna/0000",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v3",
+								"ip",
+								"car",
+								"gna",
+								"0000"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "gna sto",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var nusJsonData = JSON.parse(responseBody);\r",
+									"console.log(nusJsonData.reqId);\r",
+									"if(nusJsonData.reqId){\r",
+									"    postman.setGlobalVariable(\"reqId\", nusJsonData.reqId);\r",
+									"}\r",
+									"console.log(request)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.request.headers.add({\r",
+									"  key: 'Accept-Version',\r",
+									"  value: '{{acc_version}}'\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{oauthToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"conName\": \"Merin\",\n    \"conTel\": \"7727709876\",\n    \"qty\": 1,\n    \"wildCardNum\": \"******&&&&\",\n    \"tmplName\": \"*BR-1\",\n    \"numTermLine\": \"1\",\n    \"svcOrderNum\": \"test123\",\n    \"effDtTm\": \"NOW\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v3/ip/car/gna?reqId={{reqId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v3",
+								"ip",
+								"car",
+								"gna"
+							],
+							"query": [
+								{
+									"key": "reqId",
+									"value": "{{reqId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "gna create",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var nusJsonData = JSON.parse(responseBody);\r",
+									"console.log(nusJsonData.reqId);\r",
+									"if(nusJsonData.reqId){\r",
+									"    postman.setGlobalVariable(\"reqId\", nusJsonData.reqId);\r",
+									"}\r",
+									"console.log(request)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.request.headers.add({\r",
+									"  key: 'Accept-Version',\r",
+									"  value: '{{acc_version}}'\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{oauthToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"carrierActions\":{\"addRtng\":\"NON\",\"pssblRtng\":\"NON\",\"delRtngWork\":\"NON\",\"delRtngDscnt\":\"NON\",\"respChng\":\"NON\"},\"dlvryMthdsToCar\":{\"ntfy\":{\"online\":\"Y\"},\"apprvl\":{\"mgicli\":\"N\"}},\"cicCode\":\"0000\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v3/ip/car/gna",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v3",
+								"ip",
+								"car",
+								"gna"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "gna create Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var nusJsonData = JSON.parse(responseBody);\r",
+									"console.log(nusJsonData.reqId);\r",
+									"if(nusJsonData.reqId){\r",
+									"    postman.setGlobalVariable(\"reqId\", nusJsonData.reqId);\r",
+									"}\r",
+									"console.log(request)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.request.headers.add({\r",
+									"  key: 'Accept-Version',\r",
+									"  value: '{{acc_version}}'\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{oauthToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"carrierActions\":{\"addRtng\":\"NON\",\"pssblRtng\":\"NON\",\"delRtngWork\":\"NON\",\"delRtngDscnt\":\"NON\",\"respChng\":\"NON\"},\"dlvryMthdsToCar\":{\"ntfy\":{\"online\":\"Y\"},\"apprvl\":{\"mgicli\":\"N\"}},\"cicCode\":\"0000\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v3/ip/car/gna?reqId={{reqId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v3",
+								"ip",
+								"car",
+								"gna"
+							],
+							"query": [
+								{
+									"key": "reqId",
+									"value": "{{reqId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "cag create",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var nusJsonData = JSON.parse(responseBody);\r",
+									"console.log(nusJsonData.reqId);\r",
+									"if(nusJsonData.reqId){\r",
+									"    postman.setGlobalVariable(\"reqId\", nusJsonData.reqId);\r",
+									"}\r",
+									"console.log(request)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.request.headers.add({\r",
+									"  key: 'Accept-Version',\r",
+									"  value: '{{acc_version}}'\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{oauthToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"cagEntityList\":[\"BR\"],\"cicCode\":\"0000\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v3/ip/car/cag",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v3",
+								"ip",
+								"car",
+								"cag"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "cag create Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var nusJsonData = JSON.parse(responseBody);\r",
+									"console.log(nusJsonData.reqId);\r",
+									"if(nusJsonData.reqId){\r",
+									"    postman.setGlobalVariable(\"reqId\", nusJsonData.reqId);\r",
+									"}\r",
+									"console.log(request)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.request.headers.add({\r",
+									"  key: 'Accept-Version',\r",
+									"  value: '{{acc_version}}'\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{oauthToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"cagEntityList\":[\"BR\"],\"cicCode\":\"0000\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v3/ip/car/cag?reqId={{reqId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v3",
+								"ip",
+								"car",
+								"cag"
+							],
+							"query": [
+								{
+									"key": "reqId",
+									"value": "{{reqId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "cis create",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var nusJsonData = JSON.parse(responseBody);\r",
+									"console.log(nusJsonData.reqId);\r",
+									"if(nusJsonData.reqId){\r",
+									"    postman.setGlobalVariable(\"reqId\", nusJsonData.reqId);\r",
+									"}\r",
+									"console.log(request)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.request.headers.add({\r",
+									"  key: 'Accept-Version',\r",
+									"  value: '{{acc_version}}'\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{oauthToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"secndryCICRec\":[],\"acna\":\"ATM\",\"prmryCICRec\":{\"cicCode\":\"0000\",\"respOrg\":\"BRSAC\",\"translation\":\"B\",\"status\":\"ACTIVE\"},\"recVersionId\":\"1608092007334000000\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v3/ip/car/cis",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v3",
+								"ip",
+								"car",
+								"cis"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "cis create sto",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var nusJsonData = JSON.parse(responseBody);\r",
+									"console.log(nusJsonData.reqId);\r",
+									"if(nusJsonData.reqId){\r",
+									"    postman.setGlobalVariable(\"reqId\", nusJsonData.reqId);\r",
+									"}\r",
+									"console.log(request)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.request.headers.add({\r",
+									"  key: 'Accept-Version',\r",
+									"  value: '{{acc_version}}'\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{oauthToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"secndryCICRec\":[],\"acna\":\"ATM\",\"prmryCICRec\":{\"cicCode\":\"0000\",\"respOrg\":\"BRSAC\",\"translation\":\"B\",\"status\":\"ACTIVE\"},\"recVersionId\":\"1608092007334000000\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v3/ip/car/cis?reqId={{reqId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v3",
+								"ip",
+								"car",
+								"cis"
+							],
+							"query": [
+								{
+									"key": "reqId",
+									"value": "{{reqId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "gna del",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var nusJsonData = JSON.parse(responseBody);\r",
+									"console.log(nusJsonData.reqId);\r",
+									"if(nusJsonData.reqId){\r",
+									"    postman.setGlobalVariable(\"reqId\", nusJsonData.reqId);\r",
+									"}\r",
+									"console.log(request)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.request.headers.add({\r",
+									"  key: 'Accept-Version',\r",
+									"  value: '{{acc_version}}'\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{oauthToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"cicCode\":\"0113\",\"recVersionId\":\"1561187849000001000\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v3/ip/car/gna/delete",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v3",
+								"ip",
+								"car",
+								"gna",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "gna del Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var nusJsonData = JSON.parse(responseBody);\r",
+									"console.log(nusJsonData.reqId);\r",
+									"if(nusJsonData.reqId){\r",
+									"    postman.setGlobalVariable(\"reqId\", nusJsonData.reqId);\r",
+									"}\r",
+									"console.log(request)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.request.headers.add({\r",
+									"  key: 'Accept-Version',\r",
+									"  value: '{{acc_version}}'\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{oauthToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"cicCode\":\"0113\",\"recVersionId\":\"1561187849000001000\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v3/ip/car/gna/delete?reqId={{reqId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v3",
+								"ip",
+								"car",
+								"gna",
+								"delete"
+							],
+							"query": [
+								{
+									"key": "reqId",
+									"value": "{{reqId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "nof list",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var nusJsonData = JSON.parse(responseBody);\r",
+									"console.log(nusJsonData.reqId);\r",
+									"if(nusJsonData.reqId){\r",
+									"    postman.setGlobalVariable(\"reqId\", nusJsonData.reqId);\r",
+									"}\r",
+									"console.log(request)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.request.headers.add({\r",
+									"  key: 'Accept-Version',\r",
+									"  value: '{{acc_version}}'\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{oauthToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"cicCode\":\"0113\",\"recVersionId\":\"1561187849000001000\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v3/ip/car/nof/lst",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v3",
+								"ip",
+								"car",
+								"nof",
+								"lst"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "nof list Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var nusJsonData = JSON.parse(responseBody);\r",
+									"console.log(nusJsonData.reqId);\r",
+									"if(nusJsonData.reqId){\r",
+									"    postman.setGlobalVariable(\"reqId\", nusJsonData.reqId);\r",
+									"}\r",
+									"console.log(request)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.request.headers.add({\r",
+									"  key: 'Accept-Version',\r",
+									"  value: '{{acc_version}}'\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{oauthToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"cicCode\":\"0113\",\"recVersionId\":\"1561187849000001000\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v3/ip/car/nof/lst?reqId={{reqId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v3",
+								"ip",
+								"car",
+								"nof",
+								"lst"
+							],
+							"query": [
+								{
+									"key": "reqId",
+									"value": "{{reqId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/car/nof",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var nusJsonData = JSON.parse(responseBody);\r",
+									"console.log(nusJsonData.reqId);\r",
+									"if(nusJsonData.reqId){\r",
+									"    postman.setGlobalVariable(\"reqId\", nusJsonData.reqId);\r",
+									"}\r",
+									"console.log(request)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.request.headers.add({\r",
+									"  key: 'Accept-Version',\r",
+									"  value: '{{acc_version}}'\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{oauthToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"cicCode\":\"0113\",\"recVersionId\":\"1561187849000001000\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v3/ip/car/nof/cicCode/0222/frmEffDt/20201130/npa/833?toEffDt=20201217",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v3",
+								"ip",
+								"car",
+								"nof",
+								"cicCode",
+								"0222",
+								"frmEffDt",
+								"20201130",
+								"npa",
+								"833"
+							],
+							"query": [
+								{
+									"key": "toEffDt",
+									"value": "20201217"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/car/nof Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var nusJsonData = JSON.parse(responseBody);\r",
+									"console.log(nusJsonData.reqId);\r",
+									"if(nusJsonData.reqId){\r",
+									"    postman.setGlobalVariable(\"reqId\", nusJsonData.reqId);\r",
+									"}\r",
+									"console.log(request)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.request.headers.add({\r",
+									"  key: 'Accept-Version',\r",
+									"  value: '{{acc_version}}'\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{oauthToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"cicCode\":\"0113\",\"recVersionId\":\"1561187849000001000\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v3/ip/car/nof?reqId={{reqId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v3",
+								"ip",
+								"car",
+								"nof"
+							],
+							"query": [
+								{
+									"key": "reqId",
+									"value": "{{reqId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "nof delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var nusJsonData = JSON.parse(responseBody);\r",
+									"console.log(nusJsonData.reqId);\r",
+									"if(nusJsonData.reqId){\r",
+									"    postman.setGlobalVariable(\"reqId\", nusJsonData.reqId);\r",
+									"}\r",
+									"console.log(request)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.request.headers.add({\r",
+									"  key: 'Accept-Version',\r",
+									"  value: '{{acc_version}}'\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{oauthToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"carNtfn\":[{\"recVersionId\":\"1607023951374000000\",\"tmplName\":\"*DJ-TESTMIKE\",\"effDt\":\"2020-12-03T19:45Z\"}],\"cicCode\":\"0222\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v3/ip/car/nof/delete",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v3",
+								"ip",
+								"car",
+								"nof",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "nof del sto",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var nusJsonData = JSON.parse(responseBody);\r",
+									"console.log(nusJsonData.reqId);\r",
+									"if(nusJsonData.reqId){\r",
+									"    postman.setGlobalVariable(\"reqId\", nusJsonData.reqId);\r",
+									"}\r",
+									"console.log(request)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.request.headers.add({\r",
+									"  key: 'Accept-Version',\r",
+									"  value: '{{acc_version}}'\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{oauthToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"cicCode\":\"0113\",\"recVersionId\":\"1561187849000001000\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v3/ip/car/nof/delete?reqId={{reqId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v3",
+								"ip",
+								"car",
+								"nof",
+								"delete"
+							],
+							"query": [
+								{
+									"key": "reqId",
+									"value": "{{reqId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "OCN",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var nusJsonData = JSON.parse(responseBody);\r",
+									"console.log(nusJsonData.reqId);\r",
+									"if(nusJsonData.reqId){\r",
+									"    postman.setGlobalVariable(\"reqId\", nusJsonData.reqId);\r",
+									"}\r",
+									"console.log(request)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.request.headers.add({\r",
+									"  key: 'Accept-Version',\r",
+									"  value: '{{acc_version}}'\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{oauthToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"cicCode\":\"0113\",\"recVersionId\":\"1561187849000001000\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v3/ip/car/ocn/entity/BR",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v3",
+								"ip",
+								"car",
+								"ocn",
+								"entity",
+								"BR"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "OCN Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var nusJsonData = JSON.parse(responseBody);\r",
+									"console.log(nusJsonData.reqId);\r",
+									"if(nusJsonData.reqId){\r",
+									"    postman.setGlobalVariable(\"reqId\", nusJsonData.reqId);\r",
+									"}\r",
+									"console.log(request)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.request.headers.add({\r",
+									"  key: 'Accept-Version',\r",
+									"  value: '{{acc_version}}'\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{oauthToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"cicCode\":\"0113\",\"recVersionId\":\"1561187849000001000\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v3/ip/car/ocn?reqId={{reqId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v3",
+								"ip",
+								"car",
+								"ocn"
+							],
+							"query": [
+								{
+									"key": "reqId",
+									"value": "{{reqId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RAC create",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var nusJsonData = JSON.parse(responseBody);\r",
+									"console.log(nusJsonData.reqId);\r",
+									"if(nusJsonData.reqId){\r",
+									"    postman.setGlobalVariable(\"reqId\", nusJsonData.reqId);\r",
+									"}\r",
+									"console.log(request)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.request.headers.add({\r",
+									"  key: 'Accept-Version',\r",
+									"  value: '{{acc_version}}'\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{oauthToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"potsNum\":\"7727701212\",\"conName\":\"Test\",\"ocn\":\"0000\",\"respOrgList\":[\"BRSAC\"]}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v3/ip/car/rac",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v3",
+								"ip",
+								"car",
+								"rac"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RAC create Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var nusJsonData = JSON.parse(responseBody);\r",
+									"console.log(nusJsonData.reqId);\r",
+									"if(nusJsonData.reqId){\r",
+									"    postman.setGlobalVariable(\"reqId\", nusJsonData.reqId);\r",
+									"}\r",
+									"console.log(request)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.request.headers.add({\r",
+									"  key: 'Accept-Version',\r",
+									"  value: '{{acc_version}}'\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{oauthToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"potsNum\":\"7727701212\",\"conName\":\"Test\",\"ocn\":\"0000\",\"respOrgList\":[\"BRSAC\"]}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v3/ip/car/rac?reqId={{reqId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v3",
+								"ip",
+								"car",
+								"rac"
+							],
+							"query": [
+								{
+									"key": "reqId",
+									"value": "{{reqId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deete rac",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var nusJsonData = JSON.parse(responseBody);\r",
+									"console.log(nusJsonData.reqId);\r",
+									"if(nusJsonData.reqId){\r",
+									"    postman.setGlobalVariable(\"reqId\", nusJsonData.reqId);\r",
+									"}\r",
+									"console.log(request)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.request.headers.add({\r",
+									"  key: 'Accept-Version',\r",
+									"  value: '{{acc_version}}'\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{oauthToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"potsNum\":\"7727701212\",\"recVersionId\":\"1608203624742000000\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v3/ip/car/rac/delete\n",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v3",
+								"ip",
+								"car",
+								"rac",
+								"delete\n"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deete rac Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var nusJsonData = JSON.parse(responseBody);\r",
+									"console.log(nusJsonData.reqId);\r",
+									"if(nusJsonData.reqId){\r",
+									"    postman.setGlobalVariable(\"reqId\", nusJsonData.reqId);\r",
+									"}\r",
+									"console.log(request)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.request.headers.add({\r",
+									"  key: 'Accept-Version',\r",
+									"  value: '{{acc_version}}'\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{oauthToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"potsNum\":\"7727701212\",\"recVersionId\":\"1608203624742000000\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v3/ip/car/rac/delete?reqId={{reqId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v3",
+								"ip",
+								"car",
+								"rac",
+								"delete"
+							],
+							"query": [
+								{
+									"key": "reqId",
+									"value": "{{reqId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RDC create",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var nusJsonData = JSON.parse(responseBody);\r",
+									"console.log(nusJsonData.reqId);\r",
+									"if(nusJsonData.reqId){\r",
+									"    postman.setGlobalVariable(\"reqId\", nusJsonData.reqId);\r",
+									"}\r",
+									"console.log(request)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.request.headers.add({\r",
+									"  key: 'Accept-Version',\r",
+									"  value: '{{acc_version}}'\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{oauthToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"potsNum\":\"7727701212\",\"conPhone\":\"7727701212\",\"ocn\":\"0000\",\"respOrgList\":[\"BRSAC\"]}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v3/ip/car/rdc",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v3",
+								"ip",
+								"car",
+								"rdc"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RDC create Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var nusJsonData = JSON.parse(responseBody);\r",
+									"console.log(nusJsonData.reqId);\r",
+									"if(nusJsonData.reqId){\r",
+									"    postman.setGlobalVariable(\"reqId\", nusJsonData.reqId);\r",
+									"}\r",
+									"console.log(request)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.request.headers.add({\r",
+									"  key: 'Accept-Version',\r",
+									"  value: '{{acc_version}}'\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{oauthToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"potsNum\":\"7727701212\",\"conPhone\":\"7727701212\",\"ocn\":\"0000\",\"respOrgList\":[\"BRSAC\"]}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v3/ip/car/rdc?reqId={{reqId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v3",
+								"ip",
+								"car",
+								"rdc"
+							],
+							"query": [
+								{
+									"key": "reqId",
+									"value": "{{reqId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ROC get",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var nusJsonData = JSON.parse(responseBody);\r",
+									"console.log(nusJsonData.reqId);\r",
+									"if(nusJsonData.reqId){\r",
+									"    postman.setGlobalVariable(\"reqId\", nusJsonData.reqId);\r",
+									"}\r",
+									"console.log(request)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.request.headers.add({\r",
+									"  key: 'Accept-Version',\r",
+									"  value: '{{acc_version}}'\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{oauthToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"potsNum\":\"7727701212\",\"conPhone\":\"7727701212\",\"ocn\":\"0000\",\"respOrgList\":[\"BRSAC\"]}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v3/ip/car/roc/respOrgId/BRSAC",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v3",
+								"ip",
+								"car",
+								"roc",
+								"respOrgId",
+								"BRSAC"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ROC get Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var nusJsonData = JSON.parse(responseBody);\r",
+									"console.log(nusJsonData.reqId);\r",
+									"if(nusJsonData.reqId){\r",
+									"    postman.setGlobalVariable(\"reqId\", nusJsonData.reqId);\r",
+									"}\r",
+									"console.log(request)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.request.headers.add({\r",
+									"  key: 'Accept-Version',\r",
+									"  value: '{{acc_version}}'\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{oauthToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"potsNum\":\"7727701212\",\"conPhone\":\"7727701212\",\"ocn\":\"0000\",\"respOrgList\":[\"BRSAC\"]}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v3/ip/car/roc?reqId={{reqId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v3",
+								"ip",
+								"car",
+								"roc"
+							],
+							"query": [
+								{
+									"key": "reqId",
+									"value": "{{reqId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ROC get Copy 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var nusJsonData = JSON.parse(responseBody);\r",
+									"console.log(nusJsonData.reqId);\r",
+									"if(nusJsonData.reqId){\r",
+									"    postman.setGlobalVariable(\"reqId\", nusJsonData.reqId);\r",
+									"}\r",
+									"console.log(request)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.request.headers.add({\r",
+									"  key: 'Accept-Version',\r",
+									"  value: '{{acc_version}}'\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{oauthToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"recVersionId\":\"1561190847000001000\",\"srcEffDt\":\"2011-08-24\",\"tgtEffDt\":\"2020-12-17\",\"respOrgId\":\"BRSAC\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v3/ip/car/roc/copy",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v3",
+								"ip",
+								"car",
+								"roc",
+								"copy"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ROC Copy sto",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var nusJsonData = JSON.parse(responseBody);\r",
+									"console.log(nusJsonData.reqId);\r",
+									"if(nusJsonData.reqId){\r",
+									"    postman.setGlobalVariable(\"reqId\", nusJsonData.reqId);\r",
+									"}\r",
+									"console.log(request)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.request.headers.add({\r",
+									"  key: 'Accept-Version',\r",
+									"  value: '{{acc_version}}'\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{oauthToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"recVersionId\":\"1561190847000001000\",\"srcEffDt\":\"2011-08-24\",\"tgtEffDt\":\"2020-12-17\",\"respOrgId\":\"BRSAC\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v3/ip/car/roc/copy?reqId={{reqId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v3",
+								"ip",
+								"car",
+								"roc",
+								"copy"
+							],
+							"query": [
+								{
+									"key": "reqId",
+									"value": "{{reqId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ROC disconnect",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var nusJsonData = JSON.parse(responseBody);\r",
+									"console.log(nusJsonData.reqId);\r",
+									"if(nusJsonData.reqId){\r",
+									"    postman.setGlobalVariable(\"reqId\", nusJsonData.reqId);\r",
+									"}\r",
+									"console.log(request)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.request.headers.add({\r",
+									"  key: 'Accept-Version',\r",
+									"  value: '{{acc_version}}'\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{oauthToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"effDt\":\"2020-12-17\",\"respOrgId\":\"BRSAC\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v3/ip/car/roc/disconnect",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v3",
+								"ip",
+								"car",
+								"roc",
+								"disconnect"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ROC disconnect Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var nusJsonData = JSON.parse(responseBody);\r",
+									"console.log(nusJsonData.reqId);\r",
+									"if(nusJsonData.reqId){\r",
+									"    postman.setGlobalVariable(\"reqId\", nusJsonData.reqId);\r",
+									"}\r",
+									"console.log(request)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.request.headers.add({\r",
+									"  key: 'Accept-Version',\r",
+									"  value: '{{acc_version}}'\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{oauthToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"effDt\":\"2020-12-17\",\"respOrgId\":\"BRSAC\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v3/ip/car/roc/disconnect?reqId={{reqId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v3",
+								"ip",
+								"car",
+								"roc",
+								"disconnect"
+							],
+							"query": [
+								{
+									"key": "reqId",
+									"value": "{{reqId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SAP get",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var nusJsonData = JSON.parse(responseBody);\r",
+									"console.log(nusJsonData.reqId);\r",
+									"if(nusJsonData.reqId){\r",
+									"    postman.setGlobalVariable(\"reqId\", nusJsonData.reqId);\r",
+									"}\r",
+									"console.log(request)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.request.headers.add({\r",
+									"  key: 'Accept-Version',\r",
+									"  value: '{{acc_version}}'\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{oauthToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"effDt\":\"2020-12-17\",\"respOrgId\":\"BRSAC\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v3/ip/car/sap/respOrgId/brsac/startDt/20201129?allTemplates=Y&approval=AWAIT&endDt=20201216",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v3",
+								"ip",
+								"car",
+								"sap",
+								"respOrgId",
+								"brsac",
+								"startDt",
+								"20201129"
+							],
+							"query": [
+								{
+									"key": "allTemplates",
+									"value": "Y"
+								},
+								{
+									"key": "approval",
+									"value": "AWAIT"
+								},
+								{
+									"key": "endDt",
+									"value": "20201216"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SAP get Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var nusJsonData = JSON.parse(responseBody);\r",
+									"console.log(nusJsonData.reqId);\r",
+									"if(nusJsonData.reqId){\r",
+									"    postman.setGlobalVariable(\"reqId\", nusJsonData.reqId);\r",
+									"}\r",
+									"console.log(request)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.request.headers.add({\r",
+									"  key: 'Accept-Version',\r",
+									"  value: '{{acc_version}}'\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{oauthToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"effDt\":\"2020-12-17\",\"respOrgId\":\"BRSAC\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v3/ip/car/sap?reqId={{reqId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v3",
+								"ip",
+								"car",
+								"sap"
+							],
+							"query": [
+								{
+									"key": "reqId",
+									"value": "{{reqId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Session Close",
+			"item": [
+				{
+					"name": "SessionClose",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"postman.clearGlobalVariables();"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{oauthToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n     \"clientKey\": \"{{client_key}}\",\n    \"clientSecret\": \"{{client_secret}}\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/v3/ip/sec/session/close",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v3",
+								"ip",
+								"sec",
+								"session",
+								"close"
+							],
+							"query": [
+								{
+									"key": "sessOverrideKey",
+									"value": "c3e745f1-9596-4afe-b04b-44620afc56e3",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

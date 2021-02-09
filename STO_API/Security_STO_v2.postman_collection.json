@@ -1,0 +1,1906 @@
+{
+	"info": {
+		"_postman_id": "a6d55f8a-9496-4e60-9b45-76c5077fa708",
+		"name": "Security_STO_v2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "SessionOpen",
+			"item": [
+				{
+					"name": "SessionOpen",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"postman.clearGlobalVariables();",
+									"var data = JSON.parse(responseBody);",
+									"if (data.oauthToken) {",
+									"    postman.setEnvironmentVariable(\"oauthToken\", data.oauthToken);",
+									"}",
+									"",
+									"",
+									"var data = JSON.parse(responseBody);",
+									"if (data.clientKey) {",
+									"    postman.setEnvironmentVariable(\"client_key\", data.clientKey);",
+									"}",
+									"",
+									"var data = JSON.parse(responseBody);",
+									"if (data.clientSecret) {",
+									"    postman.setEnvironmentVariable(\"client_secret\", data.clientSecret);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept-version",
+								"type": "text",
+								"value": "3.1",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"usrName\": \"BRPRASAD\",\n  \"password\": \"year@456\",\n  \"sessOverrideKey\": null,\n  \"withPerm\": true\n  \n  \n   \n}"
+						},
+						"url": {
+							"raw": "{{url}}/ip/sec/session/open",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"ip",
+								"sec",
+								"session",
+								"open"
+							],
+							"query": [
+								{
+									"key": "sessOverrideKey",
+									"value": "c3e745f1-9596-4afe-b04b-44620afc56e3",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "UserManagement",
+			"item": [
+				{
+					"name": "/sec/usr/ctrl",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var nusJsonData = JSON.parse(responseBody);\r",
+									"console.log(nusJsonData.reqId);\r",
+									"if(nusJsonData.reqId){\r",
+									"    postman.setGlobalVariable(\"reqId\", nusJsonData.reqId);\r",
+									"}else{\r",
+									"    console.log(\"errList\");\r",
+									"}\r",
+									"console.log(request)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{oauthToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/ip/sec/usr/ctrl/login/BRPRASRO",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"ip",
+								"sec",
+								"usr",
+								"ctrl",
+								"login",
+								"BRPRASRO"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/sec/usr/ctrl sto",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// pm.request.headers.add({\r",
+									"//   key: 'Accept-Version',\r",
+									"//   value: '{{acc_version}}'\r",
+									"// });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{oauthToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"qty\":1}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/ip/sec/usr/ctrl?reqId={{reqId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"ip",
+								"sec",
+								"usr",
+								"ctrl"
+							],
+							"query": [
+								{
+									"key": "reqId",
+									"value": "{{reqId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "BUS",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// pm.request.headers.add({\r",
+									"//   key: 'Accept-Version',\r",
+									"//   value: '{{acc_version}}'\r",
+									"// });"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var nusJsonData = JSON.parse(responseBody);\r",
+									"console.log(nusJsonData.reqId);\r",
+									"if(nusJsonData.reqId){\r",
+									"    postman.setGlobalVariable(\"reqId\", nusJsonData.reqId);\r",
+									"}else{\r",
+									"    console.log(\"errList\");\r",
+									"}\r",
+									"console.log(request)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{oauthToken}}"
+							},
+							{
+								"key": "ROID",
+								"type": "text",
+								"value": "ATX01",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"npa\":\"945\",\"nxx\":\"234\",\"effDt\":\"2020-12-25\",\"recVersionId\":\"1608205627950000000\"}"
+						},
+						"url": {
+							"raw": "{{url}}/ip/sec/bus/userId/BRPRASAD",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"ip",
+								"sec",
+								"bus",
+								"userId",
+								"BRPRASAD"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "BUS sto",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// pm.request.headers.add({\r",
+									"//   key: 'Accept-Version',\r",
+									"//   value: '{{acc_version}}'\r",
+									"// });"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"console.log(request)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{oauthToken}}"
+							},
+							{
+								"key": "ROID",
+								"type": "text",
+								"value": "ATX01",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"npa\":\"945\",\"nxx\":\"234\",\"effDt\":\"2020-12-25\",\"recVersionId\":\"1608205627950000000\"}"
+						},
+						"url": {
+							"raw": "{{url}}/ip/sec/bus?reqId={{reqId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"ip",
+								"sec",
+								"bus"
+							],
+							"query": [
+								{
+									"key": "reqId",
+									"value": "{{reqId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get USER",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// pm.request.headers.add({\r",
+									"//   key: 'Accept-Version',\r",
+									"//   value: '{{acc_version}}'\r",
+									"// });"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var nusJsonData = JSON.parse(responseBody);\r",
+									"console.log(nusJsonData.reqId);\r",
+									"if(nusJsonData.reqId){\r",
+									"    postman.setGlobalVariable(\"reqId\", nusJsonData.reqId);\r",
+									"}else{\r",
+									"    console.log(\"errList\");\r",
+									"}\r",
+									"console.log(request)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{oauthToken}}"
+							},
+							{
+								"key": "ROID",
+								"type": "text",
+								"value": "ATX01",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"npa\":\"945\",\"nxx\":\"234\",\"effDt\":\"2020-12-25\",\"recVersionId\":\"1608205627950000000\"}"
+						},
+						"url": {
+							"raw": "{{url}}/ip/sec/usr/BRPRASAD",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"ip",
+								"sec",
+								"usr",
+								"BRPRASAD"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get USER sto",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// pm.request.headers.add({\r",
+									"//   key: 'Accept-Version',\r",
+									"//   value: '{{acc_version}}'\r",
+									"// });"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var nusJsonData = JSON.parse(responseBody);\r",
+									"console.log(nusJsonData.reqId);\r",
+									"if(nusJsonData.reqId){\r",
+									"    postman.setGlobalVariable(\"reqId\", nusJsonData.reqId);\r",
+									"}else{\r",
+									"    console.log(\"errList\");\r",
+									"}\r",
+									"console.log(request)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{oauthToken}}"
+							},
+							{
+								"key": "ROID",
+								"type": "text",
+								"value": "ATX01",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"npa\":\"945\",\"nxx\":\"234\",\"effDt\":\"2020-12-25\",\"recVersionId\":\"1608205627950000000\"}"
+						},
+						"url": {
+							"raw": "{{url}}/ip/sec/usr?reqId={{reqId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"ip",
+								"sec",
+								"usr"
+							],
+							"query": [
+								{
+									"key": "reqId",
+									"value": "{{reqId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/sec/role/usrs",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// pm.request.headers.add({\r",
+									"//   key: 'Accept-Version',\r",
+									"//   value: '{{acc_version}}'\r",
+									"// });"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var nusJsonData = JSON.parse(responseBody);\r",
+									"console.log(nusJsonData.reqId);\r",
+									"if(nusJsonData.reqId){\r",
+									"    postman.setGlobalVariable(\"reqId\", nusJsonData.reqId);\r",
+									"}else{\r",
+									"    console.log(\"errList\");\r",
+									"}\r",
+									"console.log(request)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{oauthToken}}"
+							},
+							{
+								"key": "ROID",
+								"type": "text",
+								"value": "ATX01",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"npa\":\"945\",\"nxx\":\"234\",\"effDt\":\"2020-12-25\",\"recVersionId\":\"1608205627950000000\"}"
+						},
+						"url": {
+							"raw": "{{url}}/ip/sec/role/usrs/ALL",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"ip",
+								"sec",
+								"role",
+								"usrs",
+								"ALL"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/sec/role/usrs sto",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// pm.request.headers.add({\r",
+									"//   key: 'Accept-Version',\r",
+									"//   value: '{{acc_version}}'\r",
+									"// });"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var nusJsonData = JSON.parse(responseBody);\r",
+									"console.log(nusJsonData.reqId);\r",
+									"if(nusJsonData.reqId){\r",
+									"    postman.setGlobalVariable(\"reqId\", nusJsonData.reqId);\r",
+									"}else{\r",
+									"    console.log(\"errList\");\r",
+									"}\r",
+									"console.log(request)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{oauthToken}}"
+							},
+							{
+								"key": "ROID",
+								"type": "text",
+								"value": "ATX01",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"npa\":\"945\",\"nxx\":\"234\",\"effDt\":\"2020-12-25\",\"recVersionId\":\"1608205627950000000\"}"
+						},
+						"url": {
+							"raw": "{{url}}/ip/sec/role/usrs?reqId={{reqId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"ip",
+								"sec",
+								"role",
+								"usrs"
+							],
+							"query": [
+								{
+									"key": "reqId",
+									"value": "{{reqId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/sec/role/lockUnlock",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// pm.request.headers.add({\r",
+									"//   key: 'Accept-Version',\r",
+									"//   value: '{{acc_version}}'\r",
+									"// });"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var nusJsonData = JSON.parse(responseBody);\r",
+									"console.log(nusJsonData.reqId);\r",
+									"if(nusJsonData.reqId){\r",
+									"    postman.setGlobalVariable(\"reqId\", nusJsonData.reqId);\r",
+									"}else{\r",
+									"    console.log(\"errList\");\r",
+									"}\r",
+									"console.log(request)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{oauthToken}}"
+							},
+							{
+								"key": "ROID",
+								"type": "text",
+								"value": "ATX01",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"loginId\": \"BRPRASAD\",\r\n  \"lockInd\": \"Y\"\r\n}"
+						},
+						"url": {
+							"raw": "{{url}}/ip/sec/usr/lockUnlock",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"ip",
+								"sec",
+								"usr",
+								"lockUnlock"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/sec/usr/lockUnlock sto",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// pm.request.headers.add({\r",
+									"//   key: 'Accept-Version',\r",
+									"//   value: '{{acc_version}}'\r",
+									"// });"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var nusJsonData = JSON.parse(responseBody);\r",
+									"console.log(nusJsonData.reqId);\r",
+									"if(nusJsonData.reqId){\r",
+									"    postman.setGlobalVariable(\"reqId\", nusJsonData.reqId);\r",
+									"}else{\r",
+									"    console.log(\"errList\");\r",
+									"}\r",
+									"console.log(request)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{oauthToken}}"
+							},
+							{
+								"key": "ROID",
+								"type": "text",
+								"value": "ATX01",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"npa\":\"945\",\"nxx\":\"234\",\"effDt\":\"2020-12-25\",\"recVersionId\":\"1608205627950000000\"}"
+						},
+						"url": {
+							"raw": "{{url}}/ip/sec/usr/lockUnlock?reqId={{reqId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"ip",
+								"sec",
+								"usr",
+								"lockUnlock"
+							],
+							"query": [
+								{
+									"key": "reqId",
+									"value": "{{reqId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/sec/role/usr",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// pm.request.headers.add({\r",
+									"//   key: 'Accept-Version',\r",
+									"//   value: '{{acc_version}}'\r",
+									"// });"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var nusJsonData = JSON.parse(responseBody);\r",
+									"console.log(nusJsonData.reqId);\r",
+									"if(nusJsonData.reqId){\r",
+									"    postman.setGlobalVariable(\"reqId\", nusJsonData.reqId);\r",
+									"}else{\r",
+									"    console.log(\"errList\");\r",
+									"}\r",
+									"console.log(request)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{oauthToken}}"
+							},
+							{
+								"key": "ROID",
+								"type": "text",
+								"value": "ATX01",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"usrRole\": {\r\n    \"usrName\": \"BRPRASRO\",\r\n    \"roleName\": \"ALL\"\r\n  }\r\n}"
+						},
+						"url": {
+							"raw": "{{url}}/ip/sec/role/usr",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"ip",
+								"sec",
+								"role",
+								"usr"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/sec/role/usr sto",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// pm.request.headers.add({\r",
+									"//   key: 'Accept-Version',\r",
+									"//   value: '{{acc_version}}'\r",
+									"// });"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var nusJsonData = JSON.parse(responseBody);\r",
+									"console.log(nusJsonData.reqId);\r",
+									"if(nusJsonData.reqId){\r",
+									"    postman.setGlobalVariable(\"reqId\", nusJsonData.reqId);\r",
+									"}else{\r",
+									"    console.log(\"errList\");\r",
+									"}\r",
+									"console.log(request)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{oauthToken}}"
+							},
+							{
+								"key": "ROID",
+								"type": "text",
+								"value": "ATX01",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"usrRole\": {\r\n    \"usrName\": \"BRPRASRO\",\r\n    \"roleName\": \"OPERS\"\r\n  }\r\n}"
+						},
+						"url": {
+							"raw": "{{url}}/ip/sec/role/usr?reqId={{reqId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"ip",
+								"sec",
+								"role",
+								"usr"
+							],
+							"query": [
+								{
+									"key": "reqId",
+									"value": "{{reqId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "sec/role/permissions",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// pm.request.headers.add({\r",
+									"//   key: 'Accept-Version',\r",
+									"//   value: '{{acc_version}}'\r",
+									"// });"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var nusJsonData = JSON.parse(responseBody);\r",
+									"console.log(nusJsonData.reqId);\r",
+									"if(nusJsonData.reqId){\r",
+									"    postman.setGlobalVariable(\"reqId\", nusJsonData.reqId);\r",
+									"}else{\r",
+									"    console.log(\"errList\");\r",
+									"}\r",
+									"console.log(request)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{oauthToken}}"
+							},
+							{
+								"key": "ROID",
+								"type": "text",
+								"value": "ATX01",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"roleName\":\"ANY\",\"rspAdmAcc\":\"Y\",\"fnPermissions\":[{\"fnName\":\"AND\",\"assignedPerms\":[\"N\"]},{\"fnName\":\"APR\",\"assignedPerms\":[\"N\"]},{\"fnName\":\"ASL\",\"assignedPerms\":[\"N\"]},{\"fnName\":\"BUS\",\"assignedPerms\":[\"N\"]},{\"fnName\":\"CAD\",\"assignedPerms\":[\"N\"]},{\"fnName\":\"CAG\",\"assignedPerms\":[\"N\"]},{\"fnName\":\"CCC\",\"assignedPerms\":[\"N\"]},{\"fnName\":\"CCI\",\"assignedPerms\":[\"N\"]},{\"fnName\":\"CIS\",\"assignedPerms\":[\"N\"]},{\"fnName\":\"CLA\",\"assignedPerms\":[\"N\"]},{\"fnName\":\"CLE\",\"assignedPerms\":[\"N\"]},{\"fnName\":\"CRA\",\"assignedPerms\":[\"N\"]},{\"fnName\":\"DAP\",\"assignedPerms\":[\"N\"]},{\"fnName\":\"EAF\",\"assignedPerms\":[\"N\"]},{\"fnName\":\"EAG\",\"assignedPerms\":[\"N\"]},{\"fnName\":\"EAP\",\"assignedPerms\":[\"N\"]},{\"fnName\":\"ENA\",\"assignedPerms\":[\"N\"]},{\"fnName\":\"ENO\",\"assignedPerms\":[\"N\"]},{\"fnName\":\"EXL\",\"assignedPerms\":[\"N\"]},{\"fnName\":\"GAN\",\"assignedPerms\":[\"N\"]},{\"fnName\":\"GNA\",\"assignedPerms\":[\"N\"]},{\"fnName\":\"GSA\",\"assignedPerms\":[\"N\"]},{\"fnName\":\"GUN\",\"assignedPerms\":[\"N\"]},{\"fnName\":\"HPU\",\"assignedPerms\":[\"N\"]},{\"fnName\":\"IVR\",\"assignedPerms\":[\"N\"]},{\"fnName\":\"LCN\",\"assignedPerms\":[\"N\"]},{\"fnName\":\"MAC\",\"assignedPerms\":[\"N\"]},{\"fnName\":\"MAS\",\"assignedPerms\":[\"N\"]},{\"fnName\":\"NAC\",\"assignedPerms\":[\"N\"]},{\"fnName\":\"NCA\",\"assignedPerms\":[\"N\"]},{\"fnName\":\"NCC\",\"assignedPerms\":[\"N\"]},{\"fnName\":\"NCN\",\"assignedPerms\":[\"N\"]},{\"fnName\":\"NCO\",\"assignedPerms\":[\"N\"]},{\"fnName\":\"NET\",\"assignedPerms\":[\"N\"]},{\"fnName\":\"NLA\",\"assignedPerms\":[\"N\"]},{\"fnName\":\"NLE\",\"assignedPerms\":[\"N\"]},{\"fnName\":\"NOF\",\"assignedPerms\":[\"N\"]},{\"fnName\":\"NQC\",\"assignedPerms\":[\"N\"]},{\"fnName\":\"NRC\",\"assignedPerms\":[\"N\"]},{\"fnName\":\"NRL\",\"assignedPerms\":[\"N\"]},{\"fnName\":\"NUC\",\"assignedPerms\":[\"N\"]},{\"fnName\":\"NUS\",\"assignedPerms\":[\"N\"]},{\"fnName\":\"NXL\",\"assignedPerms\":[\"N\"]},{\"fnName\":\"NXX\",\"assignedPerms\":[\"N\"]},{\"fnName\":\"OCA\",\"assignedPerms\":[\"N\"]},{\"fnName\":\"OCN\",\"assignedPerms\":[\"N\"]},{\"fnName\":\"ORC\",\"assignedPerms\":[\"N\"]},{\"fnName\":\"ORG\",\"assignedPerms\":[\"N\"]},{\"fnName\":\"PAD\",\"assignedPerms\":[\"N\"]},{\"fnName\":\"PRC\",\"assignedPerms\":[\"N\"]},{\"fnName\":\"PRL\",\"assignedPerms\":[\"N\"]},{\"fnName\":\"RAC\",\"assignedPerms\":[\"N\"]},{\"fnName\":\"RDC\",\"assignedPerms\":[\"N\"]},{\"fnName\":\"REC\",\"assignedPerms\":[\"N\"]},{\"fnName\":\"REL\",\"assignedPerms\":[\"N\"]},{\"fnName\":\"RMS\",\"assignedPerms\":[\"N\"]},{\"fnName\":\"RNL\",\"assignedPerms\":[\"N\"]},{\"fnName\":\"ROC\",\"assignedPerms\":[\"N\"]},{\"fnName\":\"SAP\",\"assignedPerms\":[\"N\"]},{\"fnName\":\"SEC\",\"assignedPerms\":[\"N\"]},{\"fnName\":\"SID\",\"assignedPerms\":[\"N\"]},{\"fnName\":\"SPH\",\"assignedPerms\":[\"N\"]},{\"fnName\":\"SPS\",\"assignedPerms\":[\"N\"]},{\"fnName\":\"SRC\",\"assignedPerms\":[\"N\"]},{\"fnName\":\"SSP\",\"assignedPerms\":[\"N\"]},{\"fnName\":\"SUD\",\"assignedPerms\":[\"N\"]},{\"fnName\":\"TAD\",\"assignedPerms\":[\"N\"]},{\"fnName\":\"TAL\",\"assignedPerms\":[\"N\"]},{\"fnName\":\"TCO\",\"assignedPerms\":[\"N\"]},{\"fnName\":\"TEC\",\"assignedPerms\":[\"N\"]},{\"fnName\":\"TLC\",\"assignedPerms\":[\"N\"]},{\"fnName\":\"TRL\",\"assignedPerms\":[\"N\"]},{\"fnName\":\"TRQ\",\"assignedPerms\":[\"N\"]},{\"fnName\":\"UAA\",\"assignedPerms\":[\"N\"]},{\"fnName\":\"WRA\",\"assignedPerms\":[\"N\"]}]}"
+						},
+						"url": {
+							"raw": "{{url}}/ip/sec/role/permissions",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"ip",
+								"sec",
+								"role",
+								"permissions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "sec/role/permissions sto",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// pm.request.headers.add({\r",
+									"//   key: 'Accept-Version',\r",
+									"//   value: '{{acc_version}}'\r",
+									"// });"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var nusJsonData = JSON.parse(responseBody);\r",
+									"console.log(nusJsonData.reqId);\r",
+									"if(nusJsonData.reqId){\r",
+									"    postman.setGlobalVariable(\"reqId\", nusJsonData.reqId);\r",
+									"}else{\r",
+									"    console.log(\"errList\");\r",
+									"}\r",
+									"console.log(request)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{oauthToken}}"
+							},
+							{
+								"key": "ROID",
+								"type": "text",
+								"value": "ATX01",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"usrRole\": {\r\n    \"usrName\": \"BRPRASRO\",\r\n    \"roleName\": \"OPERS\"\r\n  }\r\n}"
+						},
+						"url": {
+							"raw": "{{url}}/ip/sec/role/permissions?reqId={{reqId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"ip",
+								"sec",
+								"role",
+								"permissions"
+							],
+							"query": [
+								{
+									"key": "reqId",
+									"value": "{{reqId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/sec/role",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// pm.request.headers.add({\r",
+									"//   key: 'Accept-Version',\r",
+									"//   value: '{{acc_version}}'\r",
+									"// });"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var nusJsonData = JSON.parse(responseBody);\r",
+									"console.log(nusJsonData.reqId);\r",
+									"if(nusJsonData.reqId){\r",
+									"    postman.setGlobalVariable(\"reqId\", nusJsonData.reqId);\r",
+									"}else{\r",
+									"    console.log(\"errList\");\r",
+									"}\r",
+									"console.log(request)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{oauthToken}}"
+							},
+							{
+								"key": "ROID",
+								"type": "text",
+								"value": "ATX01",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"roleName\":\"TESTSTO\",\"rspAdmAcc\":\"N\"}"
+						},
+						"url": {
+							"raw": "{{url}}/ip/sec/role",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"ip",
+								"sec",
+								"role"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "sec/role sto",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// pm.request.headers.add({\r",
+									"//   key: 'Accept-Version',\r",
+									"//   value: '{{acc_version}}'\r",
+									"// });"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var nusJsonData = JSON.parse(responseBody);\r",
+									"console.log(nusJsonData.reqId);\r",
+									"if(nusJsonData.reqId){\r",
+									"    postman.setGlobalVariable(\"reqId\", nusJsonData.reqId);\r",
+									"}else{\r",
+									"    console.log(\"errList\");\r",
+									"}\r",
+									"console.log(request)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{oauthToken}}"
+							},
+							{
+								"key": "ROID",
+								"type": "text",
+								"value": "ATX01",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"usrRole\": {\r\n    \"usrName\": \"BRPRASRO\",\r\n    \"roleName\": \"OPERS\"\r\n  }\r\n}"
+						},
+						"url": {
+							"raw": "{{url}}/ip/sec/role?reqId={{reqId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"ip",
+								"sec",
+								"role"
+							],
+							"query": [
+								{
+									"key": "reqId",
+									"value": "{{reqId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/sec/role/delete",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// pm.request.headers.add({\r",
+									"//   key: 'Accept-Version',\r",
+									"//   value: '{{acc_version}}'\r",
+									"// });"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var nusJsonData = JSON.parse(responseBody);\r",
+									"console.log(nusJsonData.reqId);\r",
+									"if(nusJsonData.reqId){\r",
+									"    postman.setGlobalVariable(\"reqId\", nusJsonData.reqId);\r",
+									"}else{\r",
+									"    console.log(\"errList\");\r",
+									"}\r",
+									"console.log(request)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{oauthToken}}"
+							},
+							{
+								"key": "ROID",
+								"type": "text",
+								"value": "ATX01",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"roleLst\":[\"TESTSTO\"]}"
+						},
+						"url": {
+							"raw": "{{url}}/ip/sec/role/delete",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"ip",
+								"sec",
+								"role",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/sec/role/delete sto",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// pm.request.headers.add({\r",
+									"//   key: 'Accept-Version',\r",
+									"//   value: '{{acc_version}}'\r",
+									"// });"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var nusJsonData = JSON.parse(responseBody);\r",
+									"console.log(nusJsonData.reqId);\r",
+									"if(nusJsonData.reqId){\r",
+									"    postman.setGlobalVariable(\"reqId\", nusJsonData.reqId);\r",
+									"}else{\r",
+									"    console.log(\"errList\");\r",
+									"}\r",
+									"console.log(request)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{oauthToken}}"
+							},
+							{
+								"key": "ROID",
+								"type": "text",
+								"value": "ATX01",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"usrRole\": {\r\n    \"usrName\": \"BRPRASRO\",\r\n    \"roleName\": \"OPERS\"\r\n  }\r\n}"
+						},
+						"url": {
+							"raw": "{{url}}/ip/sec/role/delete?reqId={{reqId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"ip",
+								"sec",
+								"role",
+								"delete"
+							],
+							"query": [
+								{
+									"key": "reqId",
+									"value": "{{reqId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/sec/usr/delete",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// pm.request.headers.add({\r",
+									"//   key: 'Accept-Version',\r",
+									"//   value: '{{acc_version}}'\r",
+									"// });"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var nusJsonData = JSON.parse(responseBody);\r",
+									"console.log(nusJsonData.reqId);\r",
+									"if(nusJsonData.reqId){\r",
+									"    postman.setGlobalVariable(\"reqId\", nusJsonData.reqId);\r",
+									"}else{\r",
+									"    console.log(\"errList\");\r",
+									"}\r",
+									"console.log(request)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{oauthToken}}"
+							},
+							{
+								"key": "ROID",
+								"type": "text",
+								"value": "ATX01",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"loginId\":\"BRPRASID\"}"
+						},
+						"url": {
+							"raw": "{{url}}/ip/sec/usr/delete",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"ip",
+								"sec",
+								"usr",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/sec/role/delete sto",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// pm.request.headers.add({\r",
+									"//   key: 'Accept-Version',\r",
+									"//   value: '{{acc_version}}'\r",
+									"// });"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var nusJsonData = JSON.parse(responseBody);\r",
+									"console.log(nusJsonData.reqId);\r",
+									"if(nusJsonData.reqId){\r",
+									"    postman.setGlobalVariable(\"reqId\", nusJsonData.reqId);\r",
+									"}else{\r",
+									"    console.log(\"errList\");\r",
+									"}\r",
+									"console.log(request)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{oauthToken}}"
+							},
+							{
+								"key": "ROID",
+								"type": "text",
+								"value": "ATX01",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"usrRole\": {\r\n    \"usrName\": \"BRPRASRO\",\r\n    \"roleName\": \"OPERS\"\r\n  }\r\n}"
+						},
+						"url": {
+							"raw": "{{url}}/ip/sec/usr/delete?reqId={{reqId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"ip",
+								"sec",
+								"usr",
+								"delete"
+							],
+							"query": [
+								{
+									"key": "reqId",
+									"value": "{{reqId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "bulk",
+			"item": [
+				{
+					"name": "{{url}}/ip/sys/bulk/lst",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var nusJsonData = JSON.parse(responseBody);\r",
+									"console.log(nusJsonData.reqId);\r",
+									"if(nusJsonData.reqId){\r",
+									"    postman.setGlobalVariable(\"reqId\", nusJsonData.reqId);\r",
+									"}else{\r",
+									"    console.log(\"errList\");\r",
+									"}\r",
+									"console.log(request)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{oauthToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/ip/sys/bulk/lst",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"ip",
+								"sys",
+								"bulk",
+								"lst"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "{{url}}/ip/sys/bulk sto",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{oauthToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/ip/sys/bulk?reqId={{reqId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"ip",
+								"sys",
+								"bulk"
+							],
+							"query": [
+								{
+									"key": "reqId",
+									"value": "{{reqId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "SessionOpen Copy",
+			"item": [
+				{
+					"name": "SessionClose",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"postman.clearGlobalVariables();"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{oauthToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n     \"clientKey\": \"{{client_key}}\",\n    \"clientSecret\": \"{{client_secret}}\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/ip/sec/session/close",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"ip",
+								"sec",
+								"session",
+								"close"
+							],
+							"query": [
+								{
+									"key": "sessOverrideKey",
+									"value": "c3e745f1-9596-4afe-b04b-44620afc56e3",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"setTimeout(function(){}, 500);"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
